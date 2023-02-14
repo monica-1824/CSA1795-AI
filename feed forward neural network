@@ -1,0 +1,19 @@
+import numpy as np
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Define model architecture
+model = Sequential()
+model.add(Dense(10, input_dim=8, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+# Compile model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Generate dummy data
+data = np.random.random((1000, 8))
+labels = np.random.randint(2, size=(1000, 1))
+
+# Train the model
+model.fit(data, labels, epochs=10, batch_size=32)
