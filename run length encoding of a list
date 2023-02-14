@@ -1,0 +1,17 @@
+% Helper predicate to extract consecutive runs of identical elements
+run_length_encoding([], []).
+run_length_encoding([H|T], [[H|SameElements]|Result]) :-
+    same_elements(H, T, SameElements, Remaining),
+    run_length_encoding(Remaining, Result).
+
+% Helper predicate to extract all consecutive identical elements
+same_elements(_, [], [], []).
+same_elements(X, [X|T], [X|SameElements], Remaining) :-
+    same_elements(X, T, SameElements, Remaining).
+same_elements(X, [Y|T], [], [Y|T]) :-
+    X \= Y.
+
+% Main predicate to perform run-length encoding
+run_length_encode(List, Encoded) :-
+    run_length_encoding(List, EncodedList),
+    flatten(EncodedList, Encoded).
